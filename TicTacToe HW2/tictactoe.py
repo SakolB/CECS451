@@ -116,44 +116,39 @@ def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
-    # max_value function return the maximum value given a board
+    # max_value function return the maximum value as well as the best action given a board
     # the function checks for all possible actions 
     # and returns value of action that leads to a maximum value possible
     def max_value(board):
         v = -math.inf
+        best_action = None
         if terminal(board):
-            return utility(board)
+            return best_action, utility(board)
         for action in actions(board):
-            v = max(v, min_value(result(board, action)))
-        return v
-    
-    # min_value function return the minimum value given a board
+            _, minValue = min_value(result(board, action))
+            if(minValue > v):
+                v = minValue
+                best_action = action
+        return best_action, v
+
+    # min_value function return the minimum value as well as the best action given a board
     # the function checks for all possible actions
     # and returns value of action that leads to a minimum value possible
     def min_value(board):
         v = math.inf
+        best_action = None
         if terminal(board):
-            return utility(board)
+            return best_action, utility(board)
         for action in actions(board):
-            v = min(v, max_value(result(board, action)))
-        return v
-    
-    # if the player is X, return the action that leads to the maximum value
-    # the max function takes the output of actions(board) which is a set of possible actions
-    # then uses the lambda function to decide the comparison value for each action
-    # the lambda function is used to find the action that leads to the minimum value
-    # since the objective of player X is to maximize the minimum value
-    # the best_action in this case will be the action that maximize the minimum value
+            _, maxValue = max_value(result(board, action))
+            if(maxValue < v):
+                v = maxValue
+                best_action = action
+        return best_action, v
 
-    # if the player is O, return the action that leads to the minimum value
-    # the min function takes the output of actions(board) which is a set of possible actions
-    # then uses the lambda function to decide the comparison value for each action
-    # the lambda function is used to find the action that leads to the maximum value
-    # since the objective of player O is to minimize the maximum value
-    # the best_action in this case will be the action that minimize the maximum value
     if player(board) == "X":
-        best_action = max(actions(board), key = lambda action: min_value(result(board, action)))
+        best_action, _ = max_value(board)
     else:
-        best_action = min(actions(board), key = lambda action: max_value(result(board, action)))
-    
+        best_action, _ = min_value(board)
+    print(best_action)
     return best_action
