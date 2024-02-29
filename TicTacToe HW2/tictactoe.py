@@ -1,6 +1,13 @@
 """
 Tic Tac Toe Player
 """
+"""
+Sakol Bun - 029092139
+Brian Bui - 027119493
+Mina Hanna: 028157348
+Marlen Joriza Dizon: 029118113
+Luis Flores: 017872801
+"""
 import math
 import copy
 
