@@ -239,7 +239,7 @@ class MinesweeperAI():
             for c in cells:
                 self.mark_safe(c)
                 for s in self.knowledge:
-                    s.mark_safe(c)
+                    # s.mark_safe(c)
                     self.safes.update(s.known_safes())
                     self.mines.update(s.known_mines())
         #If the count is equal to the number of cells, mark all the cells as
@@ -251,7 +251,7 @@ class MinesweeperAI():
             for c in cells:
                 self.mark_mine(c)
                 for s in self.knowledge:
-                    s.mark_mine(c)
+                    # s.mark_mine(c)
                     self.mines.update(s.known_mines())
                     self.safes.update(s.known_safes())
         #Otherwise, add the new sentence to the knowledge base
